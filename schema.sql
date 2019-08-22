@@ -1,15 +1,15 @@
-DROP DATABASE IF EXISTS bamazon-customer;
-CREATE database bamazon-customer;
+DROP DATABASE IF EXISTS bamazon_customer;
+CREATE database bamazon_customer;
 
-USE bamazon-customer;
+USE bamazon_customer;
 
 CREATE TABLE products (
-  item_id INT NOT NULL,
+  item_id INT NOT NULL AUTO_INCREMENT,
   product_name VARCHAR(100) NULL,
   department_name VARCHAR(100) NULL,
   price DECIMAL(10,2) NULL,
   stock_quantity INT NOT NULL,
-  PRIMARY KEY (position)
+  PRIMARY KEY (item_id)
 );
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
