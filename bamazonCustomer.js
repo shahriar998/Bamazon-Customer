@@ -16,47 +16,21 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(function(err) {
-  if (err) throw err;
-  console.log("connected as id " + connection.threadId);
-//   specificArtist();
-//   multipleArtist();
-  showTable();
-
-  connection.end();
-
-
+  if (err) {
+    console.error("error connecting: " + err.stack);
+  }
+  loadProducts();
 });
 
-function start() {
-  inquirer
-    .prompt({
-      name: "userChoise",
-      type: "input",
-      message: "What is the ID of the product they would like to buy?(Quit with Q)",
-    })
-    .then(function(answer) {
-      console.log(answer.userChoise);
-      var productBuy = parseInt(answer.userChoise);
-      console.log(productBuy);
-      console.log(res.item_id[0]);
+function loadProducts() {
+  // Selects all of the data from the MySQL products table
+  connection.query("SELECT * FROM products", function(err, response) {
+    if (err) throw err;
 
-      // for (var i =0; i<res.item.le)
-    
-      // based on their answer, either call the bid or the post functions
-      // if (answer.userChoise === "POST") {
-      //   postAuction();
-      // }
-      // else if(answer.postOrBid === "Q") {
-      //   connection.end();
-      // } else{
-        
-      // }
-    });
-}
-function showTable() {
-  connection.query("SELECT * FROM products", function(err, res) {
-    console.table(res)
-    console.log(res);
-    start();
+    // Draw the table in the terminal using the response
+    console.table(response);
+
+    // Then prompt will ask customer which product he/she would like to buy
+    //promptCustomerForItem(response);
   });
 }
